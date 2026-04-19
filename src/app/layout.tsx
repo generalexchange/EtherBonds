@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { COPY } from "@/lib/copy";
@@ -44,6 +45,7 @@ export default function RootLayout({
           {COPY.aria.skipToContent}
         </a>
         {children}
+        <Analytics />
       </body>
     </html>
   );
