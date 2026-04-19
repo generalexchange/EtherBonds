@@ -4,15 +4,15 @@ import { COPY } from "@/lib/copy";
 
 export function Thesis() {
   return (
-    <section className="bg-ivory-50 px-6 pb-24 pt-40 lg:px-10">
+    <section className="bg-parchment-50 px-6 pb-24 pt-40 lg:px-10">
       <div className="mx-auto max-w-[1200px]">
         <FadeIn>
-          <p className="text-[11px] uppercase tracking-eyebrow text-tiffany-700">
+          <p className="text-[11px] uppercase tracking-eyebrow text-sage-700">
             {COPY.thesis.eyebrow}
           </p>
         </FadeIn>
         <FadeIn delay={0.08} className="mt-6">
-          <SerifHeadline as="h2" level="section" className="text-navy-900">
+          <SerifHeadline as="h2" level="section" className="text-charcoal-900">
             {COPY.thesis.headlineLine1}
             <br />
             {COPY.thesis.headlineLine2}
@@ -26,8 +26,8 @@ export function Thesis() {
                 <p
                   className={
                     i === 1
-                      ? "text-[19px] font-medium leading-relaxed text-navy-900"
-                      : "text-[19px] leading-relaxed text-navy-900"
+                      ? "text-[19px] font-medium leading-relaxed text-charcoal-900"
+                      : "text-[19px] leading-relaxed text-charcoal-900"
                   }
                 >
                   {p}
@@ -36,7 +36,7 @@ export function Thesis() {
             ))}
           </div>
           <FadeIn delay={0.32} className="lg:col-span-5">
-            <blockquote className="font-serif text-[1.5rem] italic leading-snug text-graphite-600 md:text-[28px]">
+            <blockquote className="font-serif text-[1.5rem] italic leading-snug text-stone-600 md:text-[28px]">
               <span className="not-italic" aria-hidden>
                 &ldquo;
               </span>
@@ -49,7 +49,7 @@ export function Thesis() {
                 &rdquo;
               </span>
             </blockquote>
-            <p className="mt-6 text-xs uppercase tracking-eyebrow text-graphite-600">
+            <p className="mt-6 text-xs uppercase tracking-eyebrow text-stone-600">
               {COPY.thesis.pullQuote.attribution}
             </p>
           </FadeIn>

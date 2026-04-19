@@ -1,156 +1,51 @@
-"use client";
-
 import { COPY } from "@/lib/copy";
-import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  const shell = scrolled
-    ? "bg-ivory-50/95 backdrop-blur-sm border-b border-navy-900/10"
-    : "bg-transparent border-b border-transparent";
-
-  const brand = scrolled
-    ? "text-navy-900 focus-visible:ring-offset-ivory-50"
-    : "text-ivory-50 focus-visible:ring-offset-navy-950";
-
-  const link = scrolled
-    ? "text-graphite-600 hover:text-navy-900 focus-visible:ring-offset-ivory-50"
-    : "text-ivory-50/80 hover:text-ivory-50 focus-visible:ring-offset-navy-950";
-
-  const ghostBtn = scrolled
-    ? "border-navy-900 text-navy-900 hover:bg-navy-900/5 focus-visible:ring-offset-ivory-50"
-    : "border-ivory-50/40 text-ivory-50 hover:bg-ivory-50/10 focus-visible:ring-offset-navy-950";
-
-  const filledBtn = scrolled
-    ? "border-navy-900 bg-navy-900 text-ivory-50 hover:bg-navy-700 focus-visible:ring-offset-ivory-50"
-    : "border-ivory-50 bg-ivory-50 text-navy-950 hover:bg-ivory-100 focus-visible:ring-offset-navy-950";
-
-  const icon = open || scrolled ? "text-navy-900" : "text-ivory-50";
-
   const baseBtn =
-    "inline-flex items-center justify-center border px-5 py-2.5 text-[11px] uppercase tracking-cta transition-[color,background-color,border-color,transform] duration-200 ease-institutional hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 focus-visible:ring-offset-2 rounded-none";
+    "inline-flex items-center justify-center border px-4 py-2 text-[11px] uppercase tracking-cta transition-[color,background-color,border-color,transform] duration-200 ease-institutional hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment-50 rounded-lg";
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${shell}`}
-    >
+    <header className="relative z-10 border-b border-charcoal-900/10 bg-parchment-50">
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-6 py-4 lg:px-10"
+        className="mx-auto flex max-w-[1400px] flex-col gap-4 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-3 sm:px-6 lg:px-10"
       >
         <Link
           href="/"
-          className={`font-serif text-[20px] tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 ${brand}`}
+          className="font-serif text-[18px] tracking-wide text-charcoal-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment-50 sm:text-[20px]"
         >
           {COPY.brand.wordmark}
         </Link>
 
-        <div className="hidden flex-1 justify-center lg:flex">
-          <ul className="flex items-center gap-8">
-            {COPY.nav.links.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`text-[13px] uppercase tracking-nav transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 ${link}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:flex-1 sm:justify-center lg:gap-6">
+          {COPY.nav.links.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="text-[12px] uppercase tracking-nav text-stone-600 transition-colors duration-200 hover:text-charcoal-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment-50 lg:text-[13px]"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
           <Link
             href="#ledger"
-            className={`${baseBtn} ${ghostBtn}`}
+            className={`${baseBtn} border-charcoal-900 text-charcoal-900 hover:bg-charcoal-900/5`}
           >
             {COPY.nav.viewLedger}
           </Link>
           <Link
             href="#access"
-            className={`${baseBtn} ${filledBtn}`}
+            className={`${baseBtn} border-charcoal-900 bg-charcoal-900 text-parchment-50 hover:bg-charcoal-700`}
           >
             {COPY.nav.accessProtocol}
           </Link>
         </div>
-
-        <button
-          type="button"
-          className={`inline-flex h-10 w-10 items-center justify-center transition-colors ${icon} focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 focus-visible:ring-offset-2 ${
-            scrolled
-              ? "focus-visible:ring-offset-ivory-50"
-              : "focus-visible:ring-offset-navy-950"
-          }`}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">
-            {open ? COPY.nav.menuClose : COPY.nav.menuOpen}
-          </span>
-          {open ? (
-            <X className="h-5 w-5" strokeWidth={1.25} />
-          ) : (
-            <Menu className="h-5 w-5" strokeWidth={1.25} />
-          )}
-        </button>
       </nav>
-
-      <div
-        id="mobile-nav"
-        className={`lg:hidden ${open ? "pointer-events-auto max-h-[480px] border-b border-navy-900/10 opacity-100" : "pointer-events-none max-h-0 opacity-0"} overflow-hidden bg-ivory-50/98 transition-[max-height,opacity] duration-300 ease-institutional`}
-      >
-        <div className="flex flex-col gap-6 px-6 py-6">
-          <ul className="flex flex-col gap-4">
-            {COPY.nav.links.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block text-[13px] uppercase tracking-nav text-graphite-600 transition-colors hover:text-navy-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-50"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-col gap-3 border-t border-navy-900/10 pt-4">
-            <Link
-              href="#ledger"
-              onClick={() => setOpen(false)}
-              className={`${baseBtn} border-navy-900 text-navy-900 hover:bg-navy-900/5 focus-visible:ring-offset-ivory-50`}
-            >
-              {COPY.nav.viewLedger}
-            </Link>
-            <Link
-              href="#access"
-              onClick={() => setOpen(false)}
-              className={`${baseBtn} border-navy-900 bg-navy-900 text-ivory-50 hover:bg-navy-700 focus-visible:ring-offset-ivory-50`}
-            >
-              {COPY.nav.accessProtocol}
-            </Link>
-          </div>
-        </div>
-      </div>
     </header>
   );
 }

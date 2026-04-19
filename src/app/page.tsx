@@ -48,9 +48,11 @@ const Footer = dynamic(() =>
 export default function Home() {
   return (
     <>
-      <Navigation />
-      <main id="main" className="flex-1">
+      <div className="flex min-h-[100dvh] flex-col">
+        <Navigation />
         <Hero />
+      </div>
+      <main id="main" className="flex-1">
         <Thesis />
         <Instruments />
         <Mechanics />

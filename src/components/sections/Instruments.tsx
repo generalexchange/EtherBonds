@@ -10,12 +10,12 @@ const yields = [YIELDS.twelve, YIELDS.thirtySix, YIELDS.sixty] as const;
 
 function SpecRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-end gap-2 font-mono text-[13px] text-navy-900">
-      <span className="shrink-0 text-[12px] uppercase tracking-wide text-graphite-600">
+    <div className="flex items-end gap-2 font-mono text-[13px] text-charcoal-900">
+      <span className="shrink-0 text-[12px] uppercase tracking-wide text-stone-600">
         {label}
       </span>
       <span
-        className="mb-1.5 min-w-[1rem] flex-1 border-b border-dotted border-navy-900/15"
+        className="mb-1.5 min-w-[1rem] flex-1 border-b border-dotted border-charcoal-900/15"
         aria-hidden
       />
       <TabularNumber className="shrink-0 text-[13px]">{value}</TabularNumber>
@@ -27,16 +27,16 @@ export function Instruments() {
   return (
     <section
       id={COPY.instruments.id}
-      className="bg-ivory-100 px-6 py-24 lg:px-10"
+      className="bg-parchment-100 px-6 py-24 lg:px-10"
     >
       <div className="mx-auto max-w-[1200px]">
         <FadeIn>
-          <p className="text-[11px] uppercase tracking-eyebrow text-tiffany-700">
+          <p className="text-[11px] uppercase tracking-eyebrow text-sage-700">
             {COPY.instruments.eyebrow}
           </p>
         </FadeIn>
         <FadeIn delay={0.08} className="mt-6">
-          <SerifHeadline as="h2" level="section" className="text-navy-900">
+          <SerifHeadline as="h2" level="section" className="text-charcoal-900">
             {COPY.instruments.headline}
           </SerifHeadline>
         </FadeIn>
@@ -48,22 +48,22 @@ export function Instruments() {
             return (
               <FadeIn key={card.tenor} delay={0.08 * (i + 2)}>
                 <article
-                  className={`flex h-full flex-col border bg-ivory-50 p-10 md:p-12 ${
+                  className={`flex h-full flex-col border bg-parchment-50 p-10 md:p-12 ${
                     featured
-                      ? "border-tiffany-500"
-                      : "border-navy-900/10"
+                      ? "border-sage-500"
+                      : "border-charcoal-900/10"
                   }`}
                 >
-                  <p className="text-[11px] uppercase tracking-eyebrow text-graphite-600">
+                  <p className="text-[11px] uppercase tracking-eyebrow text-stone-600">
                     {card.tenor}
                   </p>
-                  <p className="mt-6 font-serif text-[clamp(2.5rem,5vw,3.5rem)] text-gold-500">
+                  <p className="mt-6 font-serif text-[clamp(2.5rem,5vw,3.5rem)] text-umber-500">
                     <TabularNumber>{y.toFixed(2)}%</TabularNumber>
                   </p>
-                  <p className="mt-2 text-[11px] uppercase tracking-eyebrow text-graphite-600">
+                  <p className="mt-2 text-[11px] uppercase tracking-eyebrow text-stone-600">
                     {card.yieldLabel}
                   </p>
-                  <ThinRule className="mt-8 text-navy-900" />
+                  <ThinRule className="mt-8 text-charcoal-900" />
                   <div className="mt-8 flex flex-col gap-3">
                     {card.specs.map((s) => (
                       <SpecRow key={s.label} label={s.label} value={s.value} />
@@ -72,7 +72,7 @@ export function Instruments() {
                   <div className="mt-10">
                     <Link
                       href="#documentation"
-                      className="text-sm text-navy-900 underline-offset-4 transition-colors hover:text-tiffany-700 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-tiffany-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-50"
+                      className="text-sm text-charcoal-900 underline-offset-4 transition-colors hover:text-sage-700 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment-50"
                     >
                       {card.specLink} →
                     </Link>

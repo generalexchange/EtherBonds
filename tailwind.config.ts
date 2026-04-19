@@ -9,41 +9,53 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        tiffany: {
-          50: "#F0FAF8",
-          100: "#D8F1EC",
-          300: "#7DD3C0",
-          500: "#0ABAB5",
-          700: "#087A75",
-          900: "#04433F",
+        sage: {
+          50: "#e8f2eb",
+          100: "#c9e0d1",
+          300: "#7aab8a",
+          500: "#4a7c59",
+          700: "#355d42",
+          900: "#243d2e",
         },
-        navy: {
-          50: "#F4F6FA",
-          100: "#E6EBF3",
-          500: "#1E3A5F",
-          700: "#132744",
-          900: "#0A1628",
-          950: "#050B14",
+        charcoal: {
+          50: "#f0f0ef",
+          100: "#e0e0de",
+          500: "#6b6b69",
+          700: "#454543",
+          900: "#2c2c2a",
+          950: "#1a1a18",
         },
-        ivory: {
-          50: "#FAFAF7",
-          100: "#F4F3ED",
-          200: "#E8E6DB",
+        parchment: {
+          50: "#f7f5f1",
+          100: "#ebe6dd",
+          200: "#d9d1c4",
         },
-        graphite: {
-          600: "#4A4A48",
-          800: "#252523",
-          900: "#18181B",
+        stone: {
+          600: "#5c5a57",
+          800: "#363432",
+          900: "#252422",
         },
-        gold: {
-          500: "#B8935A",
-          600: "#9C7A47",
+        umber: {
+          500: "#8b6f47",
+          600: "#6e5638",
         },
       },
       fontFamily: {
-        serif: ["var(--font-display)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        serif: [
+          "Georgia",
+          "Cambria",
+          '"Times New Roman"',
+          "Times",
+          "serif",
+        ],
+        sans: [
+          "Georgia",
+          "Cambria",
+          '"Times New Roman"',
+          "Times",
+          "serif",
+        ],
+        mono: ["var(--font-mono)", "Consolas", "ui-monospace", "monospace"],
       },
       letterSpacing: {
         eyebrow: "0.28em",

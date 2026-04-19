@@ -15,9 +15,9 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: 72,
-          background: "radial-gradient(circle at top left, #0A1628, #050B14)",
-          color: "#FAFAF7",
-          fontFamily: "Georgia, 'Times New Roman', serif",
+          background: "radial-gradient(circle at top left, #2c2c2a, #1a1a18)",
+          color: "#f7f5f1",
+          fontFamily: "Georgia, Cambria, 'Times New Roman', serif",
         }}
       >
         <div
@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
             fontSize: 14,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "#0ABAB5",
+            color: "#4a7c59",
             marginBottom: 24,
           }}
         >
@@ -55,10 +55,9 @@ export default function OpenGraphImage() {
             marginTop: 32,
             fontSize: 18,
             lineHeight: 1.6,
-            color: "rgba(250, 250, 247, 0.72)",
+            color: "rgba(247, 245, 241, 0.72)",
             maxWidth: 720,
-            fontFamily:
-              "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
+            fontFamily: "Georgia, Cambria, 'Times New Roman', serif",
           }}
         >
           {

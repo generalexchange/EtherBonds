@@ -7,12 +7,7 @@
     scroll-behavior: smooth;
   }
 
-  body {
-    @apply bg-ivory-50 text-navy-900 font-sans text-base leading-[1.7] tracking-[-0.01em];
-    font-feature-settings: "ss01" 1, "cv11" 1;
-  }
-
   ::selection {
-    @apply bg-tiffany-100 text-navy-900;
+    @apply bg-sage-100 text-charcoal-900;
   }
 }

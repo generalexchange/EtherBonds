@@ -19,8 +19,6 @@ export const COPY = {
     ],
     viewLedger: "View Ledger",
     accessProtocol: "Access Protocol",
-    menuOpen: "Open menu",
-    menuClose: "Close menu",
   },
   hero: {
     eyebrow: "PROTOCOL 001 — ETHEREUM MAINNET",

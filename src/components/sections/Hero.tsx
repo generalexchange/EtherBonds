@@ -59,7 +59,7 @@ function Constellation() {
           }
         `}</style>
       </defs>
-      <g className="constellation-root text-tiffany-500">
+      <g className="constellation-root text-sage-500">
         <g stroke="currentColor" strokeOpacity="0.05" fill="none" strokeWidth="0.5">
           <line x1="8%" y1="22%" x2="18%" y2="28%" />
           <line x1="18%" y1="28%" x2="28%" y2="24%" />
@@ -110,10 +110,10 @@ export function Hero() {
   return (
     <section
       id="protocol"
-      className="relative min-h-[100dvh] overflow-hidden bg-navy-950 pt-24 text-ivory-50"
+      className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-charcoal-950 text-parchment-50"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-navy-900 via-navy-950 to-navy-950"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-charcoal-900 via-charcoal-950 to-charcoal-950"
         aria-hidden
       />
       <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]" aria-hidden>
@@ -129,12 +129,12 @@ export function Hero() {
       </svg>
       <Constellation />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-6rem)] max-w-content flex-col justify-center px-6 pb-16 pt-10 lg:px-10">
-        <p className="mb-6 text-[11px] uppercase tracking-[0.28em] text-tiffany-500">
+      <div className="relative z-10 mx-auto flex min-h-0 flex-1 max-w-content flex-col justify-center px-6 py-12 pb-16 lg:px-10">
+        <p className="mb-6 text-[11px] uppercase tracking-[0.28em] text-sage-500">
           {COPY.hero.eyebrow}
         </p>
 
-        <h1 className="font-serif text-[clamp(2.5rem,10vw,4rem)] font-normal leading-none tracking-[-0.02em] text-ivory-50 md:text-[clamp(3.5rem,8vw,7rem)]">
+        <h1 className="font-serif text-[clamp(2.5rem,10vw,4rem)] font-normal leading-none tracking-[-0.02em] text-parchment-50 md:text-[clamp(3.5rem,8vw,7rem)]">
           {headline.map((line) => (
             <span key={line.li} className="block">
               {line.words.map((w, wi) => (
@@ -157,7 +157,7 @@ export function Hero() {
           ))}
         </h1>
 
-        <p className="mt-8 max-w-prose text-lg text-ivory-50/70 md:text-[18px]">
+        <p className="mt-8 max-w-prose text-lg text-parchment-50/70 md:text-[18px]">
           {COPY.hero.subhead}
         </p>
 
@@ -171,55 +171,55 @@ export function Hero() {
         </div>
 
         <div className="mt-16">
-          <ThinRule className="text-ivory-50" />
+          <ThinRule className="text-parchment-50" />
           <div className="mt-8 grid grid-cols-2 gap-8 lg:grid-cols-4">
             <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-ivory-50/50">
+              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
                 {COPY.hero.yieldLabels.twelve}
               </p>
-              <p className="mt-2 font-mono text-3xl text-gold-500 md:text-4xl">
+              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
                 <TabularNumber>
                   {y12}%
                 </TabularNumber>
               </p>
-              <p className="mt-1 font-mono text-xs text-ivory-50/50">
+              <p className="mt-1 font-mono text-xs text-parchment-50/50">
                 {COPY.hero.yieldQualifiers.fixed}
               </p>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-ivory-50/50">
+              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
                 {COPY.hero.yieldLabels.thirtySix}
               </p>
-              <p className="mt-2 font-mono text-3xl text-gold-500 md:text-4xl">
+              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
                 <TabularNumber>
                   {y36}%
                 </TabularNumber>
               </p>
-              <p className="mt-1 font-mono text-xs text-ivory-50/50">
+              <p className="mt-1 font-mono text-xs text-parchment-50/50">
                 {COPY.hero.yieldQualifiers.fixed}
               </p>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-ivory-50/50">
+              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
                 {COPY.hero.yieldLabels.sixty}
               </p>
-              <p className="mt-2 font-mono text-3xl text-gold-500 md:text-4xl">
+              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
                 <TabularNumber>
                   {y60}%
                 </TabularNumber>
               </p>
-              <p className="mt-1 font-mono text-xs text-ivory-50/50">
+              <p className="mt-1 font-mono text-xs text-parchment-50/50">
                 {COPY.hero.yieldQualifiers.fixed}
               </p>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-ivory-50/50">
+              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
                 {COPY.hero.yieldLabels.tvl}
               </p>
-              <p className="mt-2 font-mono text-3xl text-ivory-50 md:text-4xl">
+              <p className="mt-2 font-mono text-3xl text-parchment-50 md:text-4xl">
                 <TabularNumber>{tvl}</TabularNumber>
               </p>
-              <p className="mt-1 font-mono text-xs text-ivory-50/50">
+              <p className="mt-1 font-mono text-xs text-parchment-50/50">
                 {COPY.hero.yieldQualifiers.networks}
               </p>
             </div>
