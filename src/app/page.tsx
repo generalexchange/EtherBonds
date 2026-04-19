@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
+import FullFooter from "@/components/ui/FullFooter";
 import { Navigation } from "@/components/ui/Navigation";
 
 const Thesis = dynamic(() =>
@@ -41,10 +42,6 @@ const Documentation = dynamic(() =>
 const Closing = dynamic(() =>
   import("@/components/sections/Closing").then((m) => ({ default: m.Closing })),
 );
-const Footer = dynamic(() =>
-  import("@/components/ui/Footer").then((m) => ({ default: m.Footer })),
-);
-
 export default function Home() {
   return (
     <>
@@ -63,7 +60,7 @@ export default function Home() {
         <Documentation />
         <Closing />
       </main>
-      <Footer />
+      <FullFooter />
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import SubFooterGate from "@/components/ui/SubFooterGate";
 import { COPY } from "@/lib/copy";
 
 const mono = JetBrains_Mono({
@@ -46,6 +47,7 @@ export default function RootLayout({
         </a>
         {children}
         <Analytics />
+        <SubFooterGate />
       </body>
     </html>
   );
