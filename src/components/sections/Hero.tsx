@@ -1,231 +1,253 @@
 "use client";
 
-import { easeInstitutional } from "@/components/primitives/FadeIn";
-import { TabularNumber } from "@/components/primitives/TabularNumber";
-import { ButtonLink } from "@/components/ui/Button";
-import { ThinRule } from "@/components/ui/ThinRule";
-import { YIELDS } from "@/lib/constants";
 import { COPY } from "@/lib/copy";
-import { animate } from "framer-motion";
+import { sectionEase } from "@/lib/section-motion";
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { GitHubMark } from "@/components/ui/BrandIcons";
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { useCallback, useState } from "react";
 
-function useAnimatedNumber(target: number, duration = 1.8, decimals = 2) {
-  const [text, setText] = useState("0.00");
+const yamlLines = [
+  "# .etherbonds/instrument.yml",
+  "",
+  "repository:",
+  "  name: next.js",
+  "  owner: vercel",
+  "  visibility: public",
+  "",
+  "instrument:",
+  "  type: repository_bond",
+  "  tenor: 60_months",
+  "  yield_source: analytics",
+  "",
+  "metrics_tracked:",
+  "  - commits_per_week",
+  "  - stars_delta",
+  "  - downstream_installs",
+  "  - forks_active",
+  "",
+  "settlement:",
+  "  address: vercel.com",
+  "  registrar: namecheap",
+  "  currency: USDC",
+  "  cadence: monthly",
+  "",
+  "status: ACTIVE",
+  "last_settlement: 2025-01-15T00:00:00Z",
+  "next_settlement: 2025-02-15T00:00:00Z",
+  "accrued_yield: 2,847.52 USDC",
+] as const;
 
-  useEffect(() => {
-    const controls = animate(0, target, {
-      duration,
-      ease: easeInstitutional,
-      onUpdate: (v) => {
-        setText(v.toFixed(decimals));
-      },
-    });
-    return () => controls.stop();
-  }, [duration, target, decimals]);
-
-  return text;
+function highlightYamlLine(line: string) {
+  if (line.startsWith("#")) {
+    return <span className="text-parchment-50/40">{line}</span>;
+  }
+  if (line.includes("USDC") || /T\d{2}:\d{2}:\d{2}Z/.test(line)) {
+    const parts = line.split(/(\d[\d,.]*\s*USDC|\d{4}-\d{2}-\d{2}T[\d:Z]+)/g);
+    return (
+      <span>
+        {parts.map((part, i) =>
+          /\d/.test(part) && (part.includes("USDC") || part.includes("T")) ? (
+            <span key={i} className="text-umber-500">
+              {part}
+            </span>
+          ) : (
+            <span key={i} className="text-sage-300">
+              {part}
+            </span>
+          ),
+        )}
+      </span>
+    );
+  }
+  if (line.trim().startsWith("-")) {
+    return <span className="text-sage-300">{line}</span>;
+  }
+  if (line.includes(":")) {
+    const idx = line.indexOf(":");
+    return (
+      <span>
+        <span className="text-parchment-50">{line.slice(0, idx)}</span>
+        <span className="text-parchment-50/50">:{line.slice(idx + 1)}</span>
+      </span>
+    );
+  }
+  return <span className="text-parchment-50/90">{line}</span>;
 }
 
-function useAnimatedTvl(duration = 1.8) {
-  const [text, setText] = useState("$0.00M");
-  useEffect(() => {
-    const controls = animate(0, 0, {
-      duration,
-      ease: easeInstitutional,
-      onUpdate: (v) => {
-        setText(`$${v.toFixed(2)}M`);
-      },
-    });
-    return () => controls.stop();
-  }, [duration]);
-  return text;
-}
+function CopyHint({
+  children,
+  value,
+}: {
+  children: ReactNode;
+  value: string;
+}) {
+  const [copied, setCopied] = useState(false);
+  const onCopy = useCallback(() => {
+    void navigator.clipboard.writeText(value);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  }, [value]);
 
-function Constellation() {
   return (
-    <svg
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.35]"
-      aria-hidden
+    <button
+      type="button"
+      onClick={onCopy}
+      className="group relative inline-flex items-center gap-2 font-mono text-xs text-parchment-50/40 transition-colors hover:text-parchment-50/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950"
     >
-      <defs>
-        <style>{`
-          @keyframes constellation-drift {
-            0% { transform: translate3d(0,0,0); }
-            100% { transform: translate3d(2%, -1.5%, 0); }
-          }
-          .constellation-root {
-            animation: constellation-drift 120s linear infinite alternate;
-          }
-        `}</style>
-      </defs>
-      <g className="constellation-root text-sage-500">
-        <g stroke="currentColor" strokeOpacity="0.05" fill="none" strokeWidth="0.5">
-          <line x1="8%" y1="22%" x2="18%" y2="28%" />
-          <line x1="18%" y1="28%" x2="28%" y2="24%" />
-          <line x1="28%" y1="24%" x2="38%" y2="32%" />
-          <line x1="62%" y1="18%" x2="72%" y2="26%" />
-          <line x1="72%" y1="26%" x2="84%" y2="22%" />
-          <line x1="14%" y1="68%" x2="24%" y2="62%" />
-          <line x1="24%" y1="62%" x2="34%" y2="70%" />
-          <line x1="76%" y1="58%" x2="88%" y2="64%" />
-        </g>
-        <g fill="currentColor" fillOpacity="0.06">
-          <circle cx="8%" cy="22%" r="1.2" />
-          <circle cx="18%" cy="28%" r="1" />
-          <circle cx="28%" cy="24%" r="0.9" />
-          <circle cx="38%" cy="32%" r="1.1" />
-          <circle cx="62%" cy="18%" r="1" />
-          <circle cx="72%" cy="26%" r="0.9" />
-          <circle cx="84%" cy="22%" r="1" />
-          <circle cx="14%" cy="68%" r="0.9" />
-          <circle cx="24%" cy="62%" r="1" />
-          <circle cx="34%" cy="70%" r="1.1" />
-          <circle cx="76%" cy="58%" r="1" />
-          <circle cx="88%" cy="64%" r="0.9" />
-        </g>
-      </g>
-    </svg>
+      <span>{children}</span>
+      <span className="pointer-events-none absolute -right-1 top-1/2 -translate-y-1/2 translate-x-full whitespace-nowrap pl-2 text-[10px] text-sage-400 opacity-0 transition-opacity group-hover:opacity-100">
+        {copied ? "Copied" : "Copy"}
+      </span>
+    </button>
   );
 }
 
 export function Hero() {
+  const h = COPY.homepage.hero;
   const reduceMotion = useReducedMotion();
-  const y12 = useAnimatedNumber(YIELDS.twelve);
-  const y36 = useAnimatedNumber(YIELDS.thirtySix);
-  const y60 = useAnimatedNumber(YIELDS.sixty);
-  const tvl = useAnimatedTvl();
-
-  const headline = useMemo(() => {
-    let idx = 0;
-    return COPY.hero.headlineLines.map((line, li) => ({
-      li,
-      words: line.words.map((w) => ({
-        ...w,
-        delay: idx++ * 0.07,
-      })),
-    }));
-  }, []);
 
   return (
     <section
       id="protocol"
-      className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-charcoal-950 text-parchment-50"
+      className="relative min-h-[90vh] overflow-hidden bg-charcoal-950 py-16 text-parchment-50 md:py-24"
+      aria-labelledby="hero-heading"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-charcoal-900 via-charcoal-950 to-charcoal-950"
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(247,245,241,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(247,245,241,0.05) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute right-0 top-1/4 h-[480px] w-[480px] -translate-y-1/2 translate-x-1/4 rounded-full bg-sage-500/20 blur-3xl"
         aria-hidden
       />
-      <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]" aria-hidden>
-        <filter id="noiseFilter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.9"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-      </svg>
-      <Constellation />
 
-      <div className="relative z-10 mx-auto flex min-h-0 flex-1 max-w-content flex-col justify-center px-6 py-12 pb-16 lg:px-10">
-        <p className="mb-6 text-[11px] uppercase tracking-[0.28em] text-sage-500">
-          {COPY.hero.eyebrow}
-        </p>
-
-        <h1 className="font-serif text-[clamp(2.5rem,10vw,4rem)] font-normal leading-none tracking-[-0.02em] text-parchment-50 md:text-[clamp(3.5rem,8vw,7rem)]">
-          {headline.map((line) => (
-            <span key={line.li} className="block">
-              {line.words.map((w, wi) => (
-                <motion.span
-                  key={`${line.li}-${wi}`}
-                  className={w.italic ? "italic" : undefined}
-                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: reduceMotion ? 0 : w.delay,
-                    ease: easeInstitutional,
-                  }}
-                >
-                  {w.text}
-                  {wi < line.words.length - 1 ? "\u00a0" : null}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </h1>
-
-        <p className="mt-8 max-w-prose text-lg text-parchment-50/70 md:text-[18px]">
-          {COPY.hero.subhead}
-        </p>
-
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-          <ButtonLink href="#instruments" variant="filledTiffany">
-            {COPY.hero.ctaPrimary}
-          </ButtonLink>
-          <ButtonLink href="#documentation" variant="textIvory">
-            {COPY.hero.ctaSecondary} →
-          </ButtonLink>
-        </div>
-
-        <div className="mt-16">
-          <ThinRule className="text-parchment-50" />
-          <div className="mt-8 grid grid-cols-2 gap-8 lg:grid-cols-4">
-            <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
-                {COPY.hero.yieldLabels.twelve}
-              </p>
-              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
-                <TabularNumber>
-                  {y12}%
-                </TabularNumber>
-              </p>
-              <p className="mt-1 font-mono text-xs text-parchment-50/50">
-                {COPY.hero.yieldQualifiers.fixed}
-              </p>
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
+          <div className="lg:col-span-3">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-sage-500">
+              {h.eyebrow}
+            </p>
+            <h1
+              id="hero-heading"
+              className="mt-4 font-serif text-[clamp(2.25rem,7vw,6rem)] font-normal leading-[1.05] tracking-tight text-parchment-50"
+            >
+              {h.headlineLine1}
+              <br />
+              {h.headlineLine2}
+              <br />
+              {h.headlineLine3}{" "}
+              <span className="text-sage-500">{h.headlineAccent}</span>
+            </h1>
+            <p className="mt-8 max-w-[560px] font-sans text-lg text-parchment-50/70 md:text-xl">
+              {h.subhead}
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <a
+                href="https://github.com"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-sage-500 px-6 py-3 font-sans font-medium text-charcoal-950 shadow-lg transition hover:bg-sage-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-300 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950"
+              >
+                <GitHubMark className="h-5 w-5" />
+                {h.ctaPrimary}
+              </a>
+              <Link
+                href="https://docs.etherbonds.com"
+                className="inline-flex items-center justify-center rounded-md border border-parchment-50/20 bg-transparent px-6 py-3 font-sans font-medium text-parchment-50 transition hover:border-parchment-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950"
+              >
+                {h.ctaSecondary}
+              </Link>
             </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
-                {COPY.hero.yieldLabels.thirtySix}
-              </p>
-              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
-                <TabularNumber>
-                  {y36}%
-                </TabularNumber>
-              </p>
-              <p className="mt-1 font-mono text-xs text-parchment-50/50">
-                {COPY.hero.yieldQualifiers.fixed}
-              </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs text-parchment-50/40">
+              <CopyHint value="npm install @etherbonds/sdk">{h.cliRow.npm}</CopyHint>
+              <span aria-hidden className="text-parchment-50/20">
+                ·
+              </span>
+              <CopyHint value="curl -fsSL etherbonds.sh | sh">{h.cliRow.curl}</CopyHint>
+              <span aria-hidden className="text-parchment-50/20">
+                ·
+              </span>
+              <a
+                href="https://github.com/etherbonds"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-parchment-50/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950"
+              >
+                {h.cliRow.github}
+              </a>
             </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
-                {COPY.hero.yieldLabels.sixty}
-              </p>
-              <p className="mt-2 font-mono text-3xl text-umber-500 md:text-4xl">
-                <TabularNumber>
-                  {y60}%
-                </TabularNumber>
-              </p>
-              <p className="mt-1 font-mono text-xs text-parchment-50/50">
-                {COPY.hero.yieldQualifiers.fixed}
-              </p>
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-eyebrow text-parchment-50/50">
-                {COPY.hero.yieldLabels.tvl}
-              </p>
-              <p className="mt-2 font-mono text-3xl text-parchment-50 md:text-4xl">
-                <TabularNumber>{tvl}</TabularNumber>
-              </p>
-              <p className="mt-1 font-mono text-xs text-parchment-50/50">
-                {COPY.hero.yieldQualifiers.networks}
-              </p>
-            </div>
+            <p className="sr-only">
+              Copy commands: npm install @etherbonds/sdk, or curl installer script.
+            </p>
+          </div>
+
+          <div className="lg:col-span-2">
+            <motion.div
+              className="origin-top-right lg:-rotate-1"
+              initial={false}
+              aria-label="Example instrument configuration in a code editor"
+            >
+              <div className="relative rounded-lg border border-parchment-50/10 bg-charcoal-900/90 shadow-2xl shadow-sage-500/15">
+                <div className="flex items-center gap-2 border-b border-parchment-50/10 px-4 py-3">
+                  <span aria-hidden className="h-3 w-3 rounded-full bg-red-500/80" />
+                  <span aria-hidden className="h-3 w-3 rounded-full bg-amber-400/80" />
+                  <span aria-hidden className="h-3 w-3 rounded-full bg-sage-500/80" />
+                  <span className="ml-2 font-mono text-xs text-parchment-50/70">
+                    {h.mockup.repo}
+                  </span>
+                  <span className="ml-auto flex items-center gap-1 font-mono text-[11px] text-sage-400">
+                    <span className="h-1.5 w-1.5 animate-live-dot rounded-full bg-sage-500" />
+                    {h.mockup.branch}
+                  </span>
+                </div>
+                <pre className="max-h-[min(60vh,520px)] overflow-x-auto overflow-y-auto p-4 font-mono text-[12px] leading-relaxed md:text-[13px]">
+                  <motion.div
+                    initial="hidden"
+                    animate="show"
+                    variants={{
+                      hidden: {},
+                      show: {
+                        transition: {
+                          staggerChildren: reduceMotion ? 0 : 0.04,
+                        },
+                      },
+                    }}
+                  >
+                    {yamlLines.map((line, i) => (
+                      <motion.div
+                        key={i}
+                        variants={{
+                          hidden: { opacity: 0, y: 6 },
+                          show: {
+                            opacity: 1,
+                            y: 0,
+                            transition: { duration: 0.35, ease: sectionEase },
+                          },
+                        }}
+                      >
+                        {line === "" ? (
+                          <br />
+                        ) : (
+                          <div className="whitespace-pre-wrap">
+                            {highlightYamlLine(line)}
+                          </div>
+                        )}
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </pre>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
+
+      <hr className="absolute bottom-0 left-0 right-0 border-0 border-t border-parchment-50/10" />
     </section>
   );
 }

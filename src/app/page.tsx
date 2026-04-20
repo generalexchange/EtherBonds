@@ -1,64 +1,37 @@
-import dynamic from "next/dynamic";
-import { Hero } from "@/components/sections/Hero";
 import FullFooter from "@/components/ui/FullFooter";
 import { Navigation } from "@/components/ui/Navigation";
+import { AnalyticsEngine } from "@/components/sections/AnalyticsEngine";
+import { ClosingCTA } from "@/components/sections/ClosingCTA";
+import { DeveloperCLI } from "@/components/sections/DeveloperCLI";
+import { DomainWallet } from "@/components/sections/DomainWallet";
+import { Hero } from "@/components/sections/Hero";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { Instruments } from "@/components/sections/Instruments";
+import { Mechanics } from "@/components/sections/Mechanics";
+import { RepositoryInstruments } from "@/components/sections/RepositoryInstruments";
+import { Thesis } from "@/components/sections/Thesis";
+import { StablecoinSettlement } from "@/components/sections/StablecoinSettlement";
+import { TrustedBy } from "@/components/sections/TrustedBy";
+import { UseCases } from "@/components/sections/UseCases";
 
-const Thesis = dynamic(() =>
-  import("@/components/sections/Thesis").then((m) => ({ default: m.Thesis })),
-);
-const Instruments = dynamic(() =>
-  import("@/components/sections/Instruments").then((m) => ({
-    default: m.Instruments,
-  })),
-);
-const Mechanics = dynamic(() =>
-  import("@/components/sections/Mechanics").then((m) => ({
-    default: m.Mechanics,
-  })),
-);
-const Ledger = dynamic(() =>
-  import("@/components/sections/Ledger").then((m) => ({ default: m.Ledger })),
-);
-const Governance = dynamic(() =>
-  import("@/components/sections/Governance").then((m) => ({
-    default: m.Governance,
-  })),
-);
-const Security = dynamic(() =>
-  import("@/components/sections/Security").then((m) => ({
-    default: m.Security,
-  })),
-);
-const Research = dynamic(() =>
-  import("@/components/sections/Research").then((m) => ({
-    default: m.Research,
-  })),
-);
-const Documentation = dynamic(() =>
-  import("@/components/sections/Documentation").then((m) => ({
-    default: m.Documentation,
-  })),
-);
-const Closing = dynamic(() =>
-  import("@/components/sections/Closing").then((m) => ({ default: m.Closing })),
-);
 export default function Home() {
   return (
     <>
-      <div className="flex min-h-[100dvh] flex-col">
-        <Navigation />
+      <Navigation />
+      <main id="main">
         <Hero />
-      </div>
-      <main id="main" className="flex-1">
         <Thesis />
         <Instruments />
         <Mechanics />
-        <Ledger />
-        <Governance />
-        <Security />
-        <Research />
-        <Documentation />
-        <Closing />
+        <TrustedBy />
+        <HowItWorks />
+        <RepositoryInstruments />
+        <DomainWallet />
+        <AnalyticsEngine />
+        <StablecoinSettlement />
+        <DeveloperCLI />
+        <UseCases />
+        <ClosingCTA />
       </main>
       <FullFooter />
     </>

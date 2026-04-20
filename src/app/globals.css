@@ -11,3 +11,50 @@
     @apply bg-sage-100 text-charcoal-900;
   }
 }
+
+@keyframes blink-cursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink-cursor {
+  animation: blink-cursor 1s step-end infinite;
+}
+
+@keyframes live-dot {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 0 rgba(74, 124, 89, 0.45);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 0 4px transparent;
+  }
+}
+
+.animate-live-dot {
+  animation: live-dot 2s ease-in-out infinite;
+}
+
+@keyframes border-pulse-sage {
+  0%,
+  100% {
+    border-color: rgba(247, 245, 241, 0.15);
+    box-shadow: 0 0 0 0 rgba(74, 124, 89, 0);
+  }
+  50% {
+    border-color: rgba(74, 124, 89, 0.4);
+    box-shadow: 0 0 0 1px rgba(74, 124, 89, 0.15);
+  }
+}
+
+.animate-border-pulse-sage {
+  animation: border-pulse-sage 4s ease-in-out infinite;
+}

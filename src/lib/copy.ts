@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL, PROTOCOL_NAME, TOKEN_SYMBOL } from "./constants";
+import { HOMEPAGE_COPY } from "./homepage-copy";
 
 export const COPY = {
   meta: {
@@ -256,6 +257,7 @@ export const COPY = {
       "Contract interfaces, deployment manifests, and change logs are maintained alongside the on-chain deployment. Integrators should treat these documents as the canonical description of behaviour at each release tag.",
     docs: "Open documentation",
   },
+  homepage: HOMEPAGE_COPY,
   anchors: {
     protocol: "protocol",
     documentation: "documentation",
